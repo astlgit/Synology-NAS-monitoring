@@ -1,6 +1,6 @@
 FROM ubuntu:20.04
 
-LABEL maintainer="Abdullah ALhazmy <me@alhazmy13.net>"
+LABEL maintainer="me and only me"
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
@@ -8,7 +8,7 @@ ENV LANG C.UTF-8
 # Default versions
 ENV TELEGRAF_VERSION 1.16.3-1
 ENV INFLUXDB_VERSION 1.8.3
-ENV GRAFANA_VERSION  8.3.5
+ENV GRAFANA_VERSION  7.3.5
 ENV CHRONOGRAF_VERSION 1.8.9.1
 
 ENV GF_DATABASE_TYPE=sqlite3
