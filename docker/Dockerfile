@@ -89,7 +89,7 @@ ADD docker/grafana/provisioning /etc/grafana/provisioning
 COPY docker/grafana/grafana.ini /etc/grafana/grafana.ini
 
 # Synology SNMP
-COPY docker/synology/* /usr/share/snmp/mibs
+COPY docker/synology/* /usr/share/snmp/mibs/
 RUN chown root:root /usr/share/snmp/mibs
 RUN chmod 755 /usr/share/snmp/mibs
 
