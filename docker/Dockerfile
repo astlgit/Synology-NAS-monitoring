@@ -54,18 +54,18 @@ RUN mkdir -p /var/log/supervisor && \
 
 COPY docker/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
-COPY bash/profile .profile
+COPY docker/bash/profile .profile
 
 # Install InfluxDB
 RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
  dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
 
 # Configure InfluxDB
-COPY influxdb/influxdb.conf /etc/influxdb/influxdb.conf
-COPY influxdb/init.sh /etc/init.d/influxdb
+COPY docker/influxdb/influxdb.conf /etc/influxdb/influxdb.conf
+COPY docker/influxdb/init.sh /etc/init.d/influxdb
 
 #install syslog-ng 
-COPY syslog/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
+COPY docker/syslog/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
 
 # Install Telegraf
 RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION}_amd64.deb && \
@@ -73,8 +73,8 @@ RUN wget https://dl.influxdata.com/telegraf/releases/telegraf_${TELEGRAF_VERSION
 
 # Configure Telegraf
 RUN mv -f /etc/telegraf/telegraf.conf /etc/telegraf/telegraf.conf.default 
-COPY telegraf/telegraf.conf /etc/telegraf/telegraf.conf
-COPY telegraf/init.sh /etc/init.d/telegraf
+COPY docker/telegraf/telegraf.conf /etc/telegraf/telegraf.conf
+COPY docker/telegraf/init.sh /etc/init.d/telegraf
 
 # Install Chronograf
 RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
@@ -86,10 +86,10 @@ RUN wget https://dl.grafana.com/oss/release/grafana_${GRAFANA_VERSION}_amd64.deb
 
 # Configure Grafana with provisioning
 ADD grafana/provisioning /etc/grafana/provisioning
-COPY grafana/grafana.ini /etc/grafana/grafana.ini
+COPY docker/grafana/grafana.ini /etc/grafana/grafana.ini
 
 # Synology SNMP
-COPY synology/* /usr/share/snmp/mibs
+COPY docker/synology/* /usr/share/snmp/mibs
 RUN chown root:root /usr/share/snmp/mibs
 RUN chmod 755 /usr/share/snmp/mibs
 
