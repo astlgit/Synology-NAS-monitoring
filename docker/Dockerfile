@@ -59,15 +59,14 @@ COPY docker/bash/profile .profile
 # Install InfluxDB
 #RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
  #dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
- RUN wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb.asc && \
-    wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+ #RUN wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb.asc && \
+   # wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     #gpg --batch --verify influxdb_${INFLUXDB_VERSION}_amd64.deb.asc influxdb_${INFLUXDB_VERSION}_amd64.deb && \
-    dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && \
-    rm -f influxdb_${INFLUXDB_VERSION}_amd64.deb*
+   # rm -f influxdb_${INFLUXDB_VERSION}_amd64.deb*
 
 # Configure InfluxDB
-COPY docker/influxdb/influxdb.conf /etc/influxdb/influxdb.conf
-COPY docker/influxdb/init.sh /etc/init.d/influxdb
+#COPY docker/influxdb/influxdb.conf /etc/influxdb/influxdb.conf
+#COPY docker/influxdb/init.sh /etc/init.d/influxdb
 
 #install syslog-ng 
 COPY docker/syslog/syslog-ng.conf /etc/syslog-ng/syslog-ng.conf
@@ -82,8 +81,8 @@ COPY docker/telegraf/telegraf.conf /etc/telegraf/telegraf.conf
 COPY docker/telegraf/init.sh /etc/init.d/telegraf
 
 # Install Chronograf
-RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
- dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb  && rm chronograf_${CHRONOGRAF_VERSION}_amd64.deb
+#RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_VERSION}_amd64.deb && \
+# dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb  && rm chronograf_${CHRONOGRAF_VERSION}_amd64.deb
 
 # Install Grafana
 RUN wget https://dl.grafana.com/oss/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
@@ -105,8 +104,8 @@ RUN chmod 755 /usr/share/snmp/mibs
 
 #
 
-EXPOSE 22/tcp 3003/tcp 8086/tcp 8888/tcp 8125/udp 514/udp
-VOLUME /var/lib/influxdb /var/lib/grafana 
+EXPOSE  3003/tcp 514/udp
+#VOLUME /var/lib/influxdb /var/lib/grafana 
 #/var/lib/backups
 
 # Cleanup
