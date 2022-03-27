@@ -85,7 +85,7 @@ RUN wget https://dl.grafana.com/oss/release/grafana_${GRAFANA_VERSION}_amd64.deb
  dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
 
 # Configure Grafana with provisioning
-ADD grafana/provisioning /etc/grafana/provisioning
+ADD docker/grafana/provisioning /etc/grafana/provisioning
 COPY docker/grafana/grafana.ini /etc/grafana/grafana.ini
 
 # Synology SNMP
