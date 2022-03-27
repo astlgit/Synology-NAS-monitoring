@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 
 # Default versions
-ENV TELEGRAF_VERSION 1.16.3-1
-ENV INFLUXDB_VERSION 1.8.3
+ENV TELEGRAF_VERSION 1.18.3-1
+ENV INFLUXDB_VERSION 1.8.10
 ENV GRAFANA_VERSION  8.3.5
 ENV CHRONOGRAF_VERSION 1.8.9.1
 
@@ -38,7 +38,7 @@ RUN apt-get -y update && \
   syslog-ng \
   snmp-mibs-downloader \
   wget && \
- curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
+ curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
  apt-get install -y nodejs
 
 # Configure Supervisord, SSH and base env
@@ -57,8 +57,13 @@ COPY docker/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY docker/bash/profile .profile
 
 # Install InfluxDB
-RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
- dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
+#RUN wget https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+ #dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
+ RUN wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb.asc && \
+    wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+    gpg --batch --verify influxdb_${INFLUXDB_VERSION}_amd64.deb.asc influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+    dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+    rm -f influxdb_${INFLUXDB_VERSION}_amd64.deb*
 
 # Configure InfluxDB
 COPY docker/influxdb/influxdb.conf /etc/influxdb/influxdb.conf
@@ -101,7 +106,8 @@ RUN chmod 755 /usr/share/snmp/mibs
 #
 
 EXPOSE 22/tcp 3003/tcp 8086/tcp 8888/tcp 8125/udp 514/udp
-#VOLUME /var/lib/influxdb /var/lib/grafana /var/lib/backups
+VOLUME /var/lib/influxdb /var/lib/grafana 
+#/var/lib/backups
 
 # Cleanup
 RUN apt-get clean && \
