@@ -1,13 +1,4 @@
 FROM ubuntu:20.04
-
-RUN set -ex && \
-    mkdir ~/.gnupg; \
-    echo "disable-ipv6" >> ~/.gnupg/dirmngr.conf; \
-    for key in \
-        05CE15085FC09D18E99EFB22684A14CF2582E0C5 ; \
-    do \
-        gpg --keyserver hkp://keyserver.ubuntu.com --recv-keys "$key" ; \
-    done
     
 LABEL maintainer="me and only me"
 
@@ -70,7 +61,7 @@ COPY docker/bash/profile .profile
  #dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && rm influxdb_${INFLUXDB_VERSION}_amd64.deb
  RUN wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb.asc && \
     wget --no-verbose https://dl.influxdata.com/influxdb/releases/influxdb_${INFLUXDB_VERSION}_amd64.deb && \
-    gpg --batch --verify influxdb_${INFLUXDB_VERSION}_amd64.deb.asc influxdb_${INFLUXDB_VERSION}_amd64.deb && \
+    #gpg --batch --verify influxdb_${INFLUXDB_VERSION}_amd64.deb.asc influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     dpkg -i influxdb_${INFLUXDB_VERSION}_amd64.deb && \
     rm -f influxdb_${INFLUXDB_VERSION}_amd64.deb*
 
