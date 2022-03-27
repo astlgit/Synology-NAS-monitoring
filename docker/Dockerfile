@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV LANG C.UTF-8
 
 # Default versions
-ENV TELEGRAF_VERSION 1.16.3-1
-ENV INFLUXDB_VERSION 1.8.3
+ENV TELEGRAF_VERSION 1.18.3-1
+ENV INFLUXDB_VERSION 1.8.10
 ENV GRAFANA_VERSION  8.3.5
 ENV CHRONOGRAF_VERSION 1.8.9.1
 
@@ -38,7 +38,7 @@ RUN apt-get -y update && \
   syslog-ng \
   snmp-mibs-downloader \
   wget && \
- curl -sL https://deb.nodesource.com/setup_16.x | bash - && \
+ curl -sL https://deb.nodesource.com/setup_15.x | bash - && \
  apt-get install -y nodejs
 
 # Configure Supervisord, SSH and base env
