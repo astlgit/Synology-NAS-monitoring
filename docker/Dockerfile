@@ -52,7 +52,7 @@ RUN mkdir -p /var/log/supervisor && \
     rm -rf .profile && \
     mkdir .ssh
 
-COPY supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY docker/supervisord/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 
 COPY bash/profile .profile
 
