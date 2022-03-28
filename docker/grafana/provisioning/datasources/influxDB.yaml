@@ -9,4 +9,4 @@ datasources:
     user: telegraf
     secureJsonData:
        password: telegraf
-    url: http://localhost:8086
+    url: http://192.168.10.2:8086
