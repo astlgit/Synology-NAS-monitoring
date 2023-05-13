@@ -9,7 +9,7 @@ ENV LANG C.UTF-8
 # Default versions
 ENV TELEGRAF_VERSION 1.16.3-1
 ENV INFLUXDB_VERSION 1.8.3
-ENV GRAFANA_VERSION  8.3.5
+#ENV GRAFANA_VERSION  8.3.5
 ENV CHRONOGRAF_VERSION 1.8.9.1
 
 ENV GF_DATABASE_TYPE=sqlite3
@@ -81,12 +81,12 @@ RUN wget https://dl.influxdata.com/chronograf/releases/chronograf_${CHRONOGRAF_V
  dpkg -i chronograf_${CHRONOGRAF_VERSION}_amd64.deb  && rm chronograf_${CHRONOGRAF_VERSION}_amd64.deb
 
 # Install Grafana
-RUN wget https://dl.grafana.com/oss/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
- dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
+#RUN wget https://dl.grafana.com/oss/release/grafana_${GRAFANA_VERSION}_amd64.deb && \
+# dpkg -i grafana_${GRAFANA_VERSION}_amd64.deb && rm grafana_${GRAFANA_VERSION}_amd64.deb
 
 # Configure Grafana with provisioning
-ADD grafana/provisioning /etc/grafana/provisioning
-COPY grafana/grafana.ini /etc/grafana/grafana.ini
+#ADD grafana/provisioning /etc/grafana/provisioning
+#COPY grafana/grafana.ini /etc/grafana/grafana.ini
 
 # Synology SNMP
 COPY synology/synology.conf /etc/telegraf/telegraf.d
@@ -99,7 +99,7 @@ RUN chmod 755 /usr/share/snmp/mibs
 #COPY rootfs /tmp
 #RUN /tmp/grafana-plugins.sh
 
-EXPOSE 22/tcp 3003/tcp 8086/tcp 8888/tcp 8125/udp
+EXPOSE 22/tcp 8086/tcp 8888/tcp 8125/udp
 #VOLUME /var/lib/influxdb /var/lib/grafana /var/lib/backups
 
 # Cleanup
